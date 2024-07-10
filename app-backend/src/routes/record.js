@@ -1,14 +1,123 @@
 import express from "express";
+import User from '../models/user_model.js';
 import MedicalRecord from '../models/medical_record.js';
+import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import { createSecretToken } from '../utils/secret_token.js';
+
+dotenv.config();
 
 const router = express.Router();
 
-router.get("/test", async (req, res) => {
-  res.send("Testing route");
+// Authentication endpoint - Register
+router.post("/register", async (req, res) => {
+  const { email, username, password, doctor } = req.body;
+
+  try {
+    // Check if the user already exists
+    let existing_user = await User.findOne({ email });
+    if (existing_user) {
+      return res.status(400).json({ message: "User already exists" });
+    }
+
+    // Hash the password before saving the user
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    // Create new user
+    const user = await User.create({
+      email,
+      password: hashedPassword,
+      username,
+      doctor });
+    
+    const token = createSecretToken(user._id);
+
+    // Create a token in the cookies
+    res.cookie("token", token, {
+      withCredentials: true,
+      httpOnly: false,
+    });
+
+    res
+      .status(201)
+      .json({ message: "User signed in successfully", success: true, user });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  }
 });
 
-// This section will help you get a list of all the records.
-router.get("/", async (req, res) => {
+// Authentication endpoint - Login
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Check if the user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "Incorrect password or email from the email test" });
+    }
+
+    // Verify password
+    const isMatch = await bcrypt.compare(password, user.password);
+    console.log(isMatch);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Incorrect password or email from the password test" });
+    }
+
+    // Generate JWT token
+    const token = createSecretToken(user._id);
+
+    // Set the token as a cookie
+    res.cookie("token", token, {
+      withCredentials: true,
+      httpOnly: false,
+    });
+
+    res.status(201).json({ message: "User logged in successfully", success: true });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  }
+});
+
+// Middleware to verify JWT token
+// Check if the user has access to the route by checking the token's match
+const authMiddleware = async (req, res, next) => {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(401).json({ message: "Authorization denied" });
+  }
+
+  try {
+    jwt.verify(token, process.env.TOKEN_KEY, async (err, data) => {
+      if (err) {
+        return res.status(401).json({ message: "Token is not valid" });
+      }
+      const user = await User.findById(data.id);
+      if (!user) {
+        return res.status(401).json({ message: "Authorization denied" });
+      }
+      req.user = user; // Store user data in req
+      next(); // Pass control to the next middleware
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  }
+};
+
+// Protected route - Example
+router.get("/secure-route", authMiddleware, (req, res) => {
+  res.send("Access granted");
+});
+
+// Routes for managing medical records
+router.get("/", authMiddleware, async (req, res) => {
   try {
     const records = await MedicalRecord.find();
     res.json(records);
@@ -17,8 +126,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// This section will help you get a single record by id
-router.get("/:id", async (req, res) => {
+router.get("/:id", authMiddleware, async (req, res) => {
   try {
     const record = await MedicalRecord.findById(req.params.id);
     if (!record) {
@@ -30,8 +138,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// This section will help you create a new record.
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware, async (req, res) => {
   try {
     let newRecord = new MedicalRecord({
       patient_name: req.body.patient_name,
@@ -49,8 +156,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// This section will help you update a record by id.
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", authMiddleware, async (req, res) => {
   try {
     const updates = {
       patient_name: req.body.patient_name,
@@ -72,8 +178,7 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-// This section will help you delete a record
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authMiddleware, async (req, res) => {
   try {
     const record = await MedicalRecord.findByIdAndDelete(req.params.id);
     if (!record) {
