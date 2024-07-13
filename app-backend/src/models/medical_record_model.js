@@ -5,6 +5,10 @@ const MedicalSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    patient_gender: {
+        type: Boolean,
+        required: true,
+    },
     patient_age: {
         type: Number,
         required: true,
@@ -13,8 +17,9 @@ const MedicalSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    doctor_name: {
-        type: String,
+    doctor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true,
     },
     pathology: {
@@ -24,12 +29,15 @@ const MedicalSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    patient_triage: {
+        type: String,
+        required: true,
+    },
     notes: {
         type: String,
     },
 });
 
-// Create a model from the schema
 const MedicalRecord = mongoose.model('MedicalRecord', MedicalSchema);
 
 export default MedicalRecord;

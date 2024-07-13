@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -15,17 +14,17 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Your password is required"],
   },
-  createdAt: {
-    type: Date,
-    default: new Date(),
-  },
   doctor: {
     type: Boolean,
-    default: true,
+    default: false,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
   }
 });
 
 // Create a model from the schema
-const UserRecord = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
 
-export default UserRecord;
+export default User;
