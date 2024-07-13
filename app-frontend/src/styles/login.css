@@ -1,0 +1,105 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.login-container {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.login-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-logo img {
+    max-width: 70%;
+    border-radius: 20px;
+}
+
+.login-form {
+    background: white;
+    border-radius: 20px;
+    padding: 50px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 35%;
+}
+
+.login-form h1 {
+    margin: 0 0 10px 0;
+    color: #00aaff;
+}
+
+.login-form p {
+    color: #666;
+    margin: 0 0 20px 0;
+}
+
+.login-form input {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-form a {
+    color: #00aaff;
+    text-decoration: none;
+    margin: 10px 0;
+    display: block;
+    text-align: right;
+}
+
+.login-form a:hover {
+    text-decoration: underline;
+}
+
+#login-btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #00aaff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#signup-btn {
+    width: 50%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #00aaff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-form button:hover {
+    background: #008ecc;
+}
+
+.login-form p a {
+    display: inline;
+}
+
+.bottom-form-login {
+    margin-top: 10%;
+}
+
+@media screen and (max-width: 1000px) {
+    .login-logo {
+        display: none;
+    }
+
+    .login-form {
+        width: 70%;
+    }
+}

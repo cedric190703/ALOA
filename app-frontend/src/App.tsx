@@ -1,35 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './styles/App.css'
+import { Route, Routes } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import LoadingPage from './pages/LoadingPage';
+import SettingsPage from './pages/SettingsPage';
+import CreatePage from './pages/CreatePage';
+import AppointmentPage from './pages/AppointmentPage';
+import PatientsPage from './pages/PatientsPage';
+import NotFound from './pages/NotFound';
+import SettingsItemPage from './organisms/SettingsItemPage';
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    return (
+        <div className={`${location.pathname === '/' ? 'Loading-background' : 'App' }`}>
+            <Routes>
+                <Route path="/" element={<LoadingPage />} />
+                <Route path="/home" element={<HomePage />} />
+                <Route path="/settings" element={<SettingsPage />} />
+                <Route path="*" element={<NotFound />} />
+                <Route path="/create" element={<CreatePage />} />
+                <Route path="/patients/:id" element={<PatientsPage />} />
+                <Route path="/appointment/:id" element={<AppointmentPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignupPage />} />
+                <Route path="/settings/:id" element={<SettingsItemPage />} />
+            </Routes>
+        </div>
+    );
 }
 
 export default App

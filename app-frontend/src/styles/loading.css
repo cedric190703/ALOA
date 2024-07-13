@@ -1,0 +1,36 @@
+.loading-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #42ABEE;
+    color: white;
+}
+
+.logo-aloa-loading {
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-aloa-loading  > img {
+    width: 80%;
+    border-radius: 25%;
+    margin-left: 10%;
+    margin-bottom: 5%;
+    margin-top: 25%;
+}
+
+#spinner {
+    width: 80px;
+    height: 80px;
+}
+
+.logo-name > h2 {
+    font-size: 80px;
+    margin-bottom: 10%;
+}
+
+.span-logo > h6 {
+    margin-top: 15%;
+}
