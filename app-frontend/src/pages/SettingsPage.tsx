@@ -1,7 +1,11 @@
+import {ItemNav} from "../utils/utils.ts";
+import Sidebar from "../organisms/SideBar.tsx";
+
 function SettingsPage() {
     return (
         <>
-        <p>Settings</p>
+            <Sidebar items={ItemNav.Settings} />
+            <p>Settings</p>
         </>
     )
 }

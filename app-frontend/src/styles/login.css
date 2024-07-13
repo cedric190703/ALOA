@@ -4,6 +4,99 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.sidebar {
+    height: 100vh;
+    width: 12%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #000757;
+    overflow-x: hidden;
+    padding-top: 20px;
+    color: white;
+    transition: width 0.3s ease-in-out;
+}
+
+.sidebar.collapsed {
+    width: 80px;
+}
+
+.sidebar-logo-container {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    margin-bottom: 20px;
+    margin-top: 60px;
+    transition: opacity 0.3s;
+}
+
+.sidebar.collapsed .sidebar-logo-container p {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.sidebar-logo-container img {
+    height: 40px;
+    margin-right: 10px;
+    margin-left: 2px;
+}
+
+.sidebar-logo-container p {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 1em;
+    color: white;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s, opacity 0.3s;
+}
+
+.sidebar.collapsed a span {
+    opacity: 0;
+}
+
+.sidebar a:hover {
+    background-color: #575fcf;
+}
+
+.sidebar .sidebar-menu-item {
+    display: flex;
+    align-items: center;
+    height: 7%;
+}
+
+.sidebar .sidebar-menu-item i {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.toggle-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+#logo {
+    width: 20%;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+#chosen-item {
+    background-color: #0000ff;
+}
+
 .login-container {
     display: flex;
     height: 100vh;

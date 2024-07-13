@@ -1,7 +1,11 @@
+import {ItemNav} from "../utils/utils.ts";
+import Sidebar from "../organisms/SideBar.tsx";
+
 function PatientsPage() {
     return (
         <>
-        <p>Patients</p>
+            <Sidebar items={ItemNav.Patients} />
+            <p>Patients</p>
         </>
     )
 }
