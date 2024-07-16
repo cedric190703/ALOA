@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {ItemNav} from "../utils/utils.ts";
 import Sidebar from "./SideBar.tsx";
-import '../styles/profile.css'
+import '../styles/profile.css';
 
 function EditProfile() {
     const [age, setAge] = useState('42');

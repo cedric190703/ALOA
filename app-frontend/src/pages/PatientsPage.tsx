@@ -63,7 +63,7 @@ function PatientsPage() {
     }
 
     return (
-        <>
+        <div>
             <Sidebar items={ItemNav.Patients} />
             <div className="patients-container">
                 <div className="main-content">
@@ -99,7 +99,7 @@ function PatientsPage() {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
