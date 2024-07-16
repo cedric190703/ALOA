@@ -7,3 +7,8 @@ export enum ItemNav {
     Settings = 'settings'
 }
 
+export enum TriageType {
+    Urgent = 'urgent',
+    NonUrgent = 'nonUrgent',
+    Emergency = 'emergency'
+}

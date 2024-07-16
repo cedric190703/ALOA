@@ -1,14 +1,16 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Logo from '../assets/logoAloa.jpg';
-import {ItemNav} from '../utils/utils.ts';
-import {NavLink} from 'react-router-dom';
+import { ItemNav } from '../utils/utils.ts';
+import { NavLink } from 'react-router-dom';
+import { FaHome, FaUser, FaUserFriends, FaCalendarAlt, FaBars } from "react-icons/fa";
+import { IoIosCreate, IoMdSettings } from "react-icons/io";
 import '../styles/login.css';
 
 interface Props {
     items: ItemNav;
 }
 
-const Sidebar : React.FC<Props> = ({ items }) => {
+const Sidebar: React.FC<Props> = ({ items }) => {
     const [collapsed, setCollapsed] = useState(false);
 
     const toggleSidebar = () => {
@@ -18,37 +20,37 @@ const Sidebar : React.FC<Props> = ({ items }) => {
     return (
         <div>
             <button className="toggle-button" onClick={toggleSidebar}>
-                <i className="fa fa-bars"></i>
+                <FaBars />
             </button>
             <div className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
                 <div className="sidebar-logo-container">
                     <img src={Logo} alt="logo" />
-                    <p>Aloa</p>
+                    {!collapsed && <p>Aloa</p>}
                 </div>
 
                 <NavLink to="/home" className="sidebar-menu-item" id={items === ItemNav.Home ? 'chosen-item' : ''}>
-                    <i className="fa fa-home"></i>
-                    <span>Home</span>
+                    <FaHome className="icons-sidebar" />
+                    {!collapsed && <span>Home</span>}
                 </NavLink>
                 <NavLink to="/user" className="sidebar-menu-item" id={items === ItemNav.User ? 'chosen-item' : ''}>
-                    <i className="fa fa-user"></i>
-                    <span>Profile</span>
+                    <FaUser className="icons-sidebar" />
+                    {!collapsed && <span>Profile</span>}
                 </NavLink>
                 <NavLink to="/patients" className="sidebar-menu-item" id={items === ItemNav.Patients ? 'chosen-item' : ''}>
-                    <i className="fa fa-users"></i>
-                    <span>Patients</span>
+                    <FaUserFriends className="icons-sidebar" />
+                    {!collapsed && <span>Patients</span>}
                 </NavLink>
                 <NavLink to="/appointment" className="sidebar-menu-item" id={items === ItemNav.Calendar ? 'chosen-item' : ''}>
-                    <i className="fa fa-calendar"></i>
-                    <span>Calendar</span>
+                    <FaCalendarAlt className="icons-sidebar" />
+                    {!collapsed && <span>Calendar</span>}
                 </NavLink>
                 <NavLink to="/create" className="sidebar-menu-item" id={items === ItemNav.Create ? 'chosen-item' : ''}>
-                    <i className="fa fa-plus"></i>
-                    <span>Create</span>
+                    <IoIosCreate className="icons-sidebar" />
+                    {!collapsed && <span>Create</span>}
                 </NavLink>
                 <NavLink to="/settings" className="sidebar-menu-item" id={items === ItemNav.Settings ? 'chosen-item' : ''}>
-                    <i className="fa fa-cog"></i>
-                    <span>Settings</span>
+                    <IoMdSettings className="icons-sidebar" />
+                    {!collapsed && <span>Settings</span>}
                 </NavLink>
             </div>
         </div>

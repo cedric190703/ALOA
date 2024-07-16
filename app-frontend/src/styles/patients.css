@@ -1,0 +1,51 @@
+.patients-container {
+    display: flex;
+    min-width: 700px;
+    overflow: scroll;
+}
+
+.main-content {
+    margin-left: 12%;
+    padding: 20px;
+    width: calc(100% - 12%);
+}
+
+.main-content h1 {
+    color: #000757;
+    font-size: 2em;
+}
+
+.main-content h2 {
+    color: #575fcf;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.table-patients {
+    margin-top: 20px;
+}
+
+.table thead th {
+    color: #575fcf;
+}
+
+.table tbody tr td {
+    vertical-align: middle;
+}
+
+.button-info {
+    display: inline-block;
+}
+
+.button-info button {
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.button-info .info-image {
+    width: 40px;
+    height: 40px;
+}

@@ -11,6 +11,7 @@ import NotFound from './pages/NotFound';
 import SettingsItemPage from './organisms/SettingsItemPage';
 import UserInfo from "./pages/UserInfo.tsx";
 import EditProfile from "./organisms/EditProfile.tsx";
+import UserItemPage from './organisms/UserItemPage';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignupPage />} />
                 <Route path="/settings/:id" element={<SettingsItemPage />} />
+                <Route path="/patients/:id" element={<UserItemPage />} />
             </Routes>
         </div>
     );

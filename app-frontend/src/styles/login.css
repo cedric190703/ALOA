@@ -21,6 +21,15 @@ body {
     width: 80px;
 }
 
+
+.sidebar.collapsed .icons-sidebar {
+    margin-left: 25%;
+}
+
+.sidebar.collapsed .sidebar-menu-item span {
+    display: none;
+}
+
 .sidebar-logo-container {
     display: flex;
     align-items: center;
@@ -31,8 +40,7 @@ body {
 }
 
 .sidebar.collapsed .sidebar-logo-container p {
-    opacity: 0;
-    transition: opacity 0.3s;
+    display: none;
 }
 
 .sidebar-logo-container img {
@@ -56,10 +64,6 @@ body {
     transition: background-color 0.3s, opacity 0.3s;
 }
 
-.sidebar.collapsed a span {
-    opacity: 0;
-}
-
 .sidebar a:hover {
     background-color: #575fcf;
 }
@@ -70,9 +74,8 @@ body {
     height: 7%;
 }
 
-.sidebar .sidebar-menu-item i {
-    margin-right: 10px;
-    margin-left: 10px;
+.sidebar .sidebar-menu-item span {
+    margin-left: 15px;
 }
 
 .toggle-button {
