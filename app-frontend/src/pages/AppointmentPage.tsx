@@ -1,13 +1,27 @@
-import {ItemNav} from "../utils/utils.ts";
+import { useState } from 'react';
+import { ItemNav } from "../utils/utils.ts";
 import Sidebar from "../organisms/SideBar.tsx";
+import CalendarInfo from '../organisms/calendarInfo.tsx';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import '../styles/appointments.css';
+
+type ValuePiece = Date | null;
+type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 function AppointmentPage() {
-    return  (
+    const [value, onChange] = useState<Value>(new Date());
+
+    return (
         <>
             <Sidebar items={ItemNav.Calendar} />
-            <p>Appointment</p>
+            <div className="calendar-container" style={{ padding: '20px' }}>
+                <h2>Appointment</h2>
+                <Calendar onChange={onChange} value={value} />
+                <CalendarInfo />
+            </div>
         </>
-    )
+    );
 }
 
 export default AppointmentPage;

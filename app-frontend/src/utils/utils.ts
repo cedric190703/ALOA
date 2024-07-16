@@ -12,3 +12,10 @@ export enum TriageType {
     NonUrgent = 'nonUrgent',
     Emergency = 'emergency'
 }
+
+export enum SettingsType {
+    Light = "light",
+    Logout = "logout",
+    Security = "security",
+    AboutUs = "aboutus",
+}

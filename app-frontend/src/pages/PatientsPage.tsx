@@ -23,6 +23,38 @@ function PatientsPage() {
             age: 20,
             diagnostic: "Test",
             Triage: TriageType.Emergency
+        },
+        {
+            id: 3,
+            name: "name2",
+            Gender: "Male",
+            age: 20,
+            diagnostic: "Test",
+            Triage: TriageType.Emergency
+        },
+        {
+            id: 4,
+            name: "name2",
+            Gender: "Male",
+            age: 20,
+            diagnostic: "Test",
+            Triage: TriageType.Emergency
+        },
+        {
+            id: 5,
+            name: "name2",
+            Gender: "Male",
+            age: 20,
+            diagnostic: "Test",
+            Triage: TriageType.Emergency
+        },
+        {
+            id: 6,
+            name: "name2",
+            Gender: "Male",
+            age: 20,
+            diagnostic: "Test",
+            Triage: TriageType.Emergency
         }
     ];
 
