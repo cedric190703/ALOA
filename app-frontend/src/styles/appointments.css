@@ -3,9 +3,9 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    background-color: #f9f9f9; /* Light background for better contrast */
-    border-radius: 10px; /* Rounded corners for a modern look */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 1200px;
     margin: auto;
 }
@@ -29,21 +29,22 @@
 .react-calendar__tile {
     max-width: 100%;
     text-align: center;
-    padding: 8px 0; /* Slightly reduced padding for a compact look */
-    font-size: 1em; /* Standard font size */
-    color: #333; /* Darker text color for better readability */
+    padding: 8px 0;
+    font-size: 1em;
+    color: #333;
 }
 
 .react-calendar__tile--active {
-    background: #006edc; /* Primary color for active tile */
+    background: #006edc;
     color: white;
-    border-radius: 50%; /* Circular background for active dates */
+    border-radius: 50%;
 }
 
 .react-calendar__tile--now {
-    background: #00aaff; /* Highlight color for current date */
-    color: white;
-    border-radius: 50%; /* Circular background */
+    background: #007bff;
+    color: black;
+    border-radius: 50%;
+    font-weight: bold;
 }
 
 .calendar-info-container {
