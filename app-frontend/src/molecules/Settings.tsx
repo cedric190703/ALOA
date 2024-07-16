@@ -34,8 +34,8 @@ const SettingsModule : React.FC = () => {
         },
         {
             id: 4,
-            title: "About us",
-            description: "Find more about us",
+            title: "About",
+            description: "Find more about the application",
             Icon: SettingsType.AboutUs
         }
     ];

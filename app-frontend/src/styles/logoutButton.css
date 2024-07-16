@@ -1,0 +1,38 @@
+.button-back {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    background-color: #ff4d4d; /* Red background */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.back-button:hover {
+    background-color: #e60000; /* Darker red */
+    transform: scale(1.05);
+}
+
+.back-button:focus {
+    outline: none;
+}
+
+.icon-back {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.text-home-button {
+    font-weight: bold;
+}
