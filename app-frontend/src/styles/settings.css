@@ -113,9 +113,9 @@
     background-color: #135dc3;
 }
 
-.settings-modules > .icon {
-    width: 40px;
-    height: 40px;
+.settings-modules > .icon-settings {
+    width: 50px;
+    height: 50px;
     margin-right: 50px;
 }
 
@@ -124,7 +124,7 @@
 }
 
 .settings-modules > .content h1 {
-    margin: 0;
+    margin-top: 15px;
     font-size: 1.5em;
     font-weight: bold;
 }

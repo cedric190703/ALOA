@@ -24,19 +24,19 @@ const ButtonSettings : React.FC<Props> = ({
     return (
         <div className="settings-modules" onClick={() => onClickSettingsItem(id)}>
             {type === SettingsType.Light && (
-                <CiLight />
+                <CiLight className="icon-settings" />
             )}
 
             {type === SettingsType.Logout && (
-                <IoIosLogOut />
+                <IoIosLogOut className="icon-settings" />
             )}
 
             {type === SettingsType.Security && (
-                <MdOutlineSecurity />
+                <MdOutlineSecurity className="icon-settings" />
             )}
 
             {type === SettingsType.AboutUs && (
-                <FaCircleInfo />
+                <FaCircleInfo className="icon-settings" />
             )}
 
             <div className="content">
