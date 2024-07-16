@@ -31,6 +31,7 @@ function App() {
                 <Route path="/signup" element={<SignupPage />} />
                 <Route path="/settings/:id" element={<SettingsItemPage />} />
                 <Route path="/patients/:id" element={<UserItemPage />} />
+                <Route path="/profile/editProfile" element={<EditProfile />} />
             </Routes>
         </div>
     );

@@ -4,6 +4,7 @@ import Sidebar from '../organisms/SideBar';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import testProfile from '../assets/pexels-tima-miroshnichenko-5452293.jpg';
+import {useNavigate} from 'react-router-dom';
 import '../styles/profile.css';
 
 // Example user data for the template of the frontend
@@ -11,12 +12,17 @@ const user = {
     name: 'John Doe',
     email: 'john.doe@example.com',
     isDoctor: true,
-    patients: 42,
+    patients: '42',
     specialization: "brain surgery",
     profilePicture: testProfile
 };
 
 const UserInfo: React.FC = () => {
+    const navigate = useNavigate();
+    const handleEditProfile = () => {
+        navigate("/profile/editProfile");
+    }
+
     return (
         <div className="user-info-page">
             <Sidebar items={ItemNav.User} />
@@ -37,7 +43,7 @@ const UserInfo: React.FC = () => {
                         <Card.Text>
                             <strong>specialization:</strong> {user.specialization}
                         </Card.Text>
-                        <Button variant="primary" className="profile-edit-btn">Edit Profile</Button>
+                        <Button variant="primary" onClick={handleEditProfile} className="profile-edit-btn">Edit Profile</Button>
                     </Card.Body>
                 </Card>
             </div>

@@ -5,7 +5,7 @@ import {useState} from "react";
 import '../styles/create.css';
 
 function CreateMedicalRecord() {
-    const [age, setAge] = useState(42);
+    const [age, setAge] = useState('42');
     const [name, setName] = useState('');
     const [gender, setGender] = useState<GenderType>(GenderType.Male);
     const [diagnostic, setDiagnostic] = useState('');

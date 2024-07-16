@@ -6,12 +6,18 @@
     padding: 20px;
 }
 
-.profile-card-container {
+.profile-card-container,
+.edit-profile-container
+{
     margin-left: 12%;
     width: calc(100% - 12%);
     display: flex;
     justify-content: center;
     align-items: flex-start;
+}
+
+.edit-profile-container {
+    padding: 20px;
 }
 
 .profile-card {
