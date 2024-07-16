@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ItemNav, TriageType } from "../utils/utils";
 import Sidebar from "../organisms/SideBar";
 import ButtonInfo from '../atoms/ButtonInfo.tsx';
@@ -7,6 +8,8 @@ import '../styles/patients.css';
 
 function PatientsPage() {
     const navigate = useNavigate();
+    const [searchTerm, setSearchTerm] = useState("");
+
     const Patients = [
         {
             id: 1,
@@ -62,12 +65,27 @@ function PatientsPage() {
         navigate(`/patients/${id}`);
     }
 
+    const handleSearchChange = (event: any) => {
+        setSearchTerm(event.target.value);
+    }
+
+    const filteredPatients = Patients.filter(p =>
+        p.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div>
             <Sidebar items={ItemNav.Patients} />
             <div className="patients-container">
                 <div className="main-content">
                     <h1>Patients</h1>
+                    <input
+                        type="text"
+                        placeholder="Search patients..."
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                        className="search-bar"
+                    />
                     <h2>Patient List</h2>
                     <div className="table-patients">
                         <Table striped>
@@ -82,7 +100,7 @@ function PatientsPage() {
                             </tr>
                             </thead>
                             <tbody>
-                            {Patients.map(p => (
+                            {filteredPatients.map(p => (
                                 <tr key={p.id}>
                                     <td>{p.name}</td>
                                     <td>{p.Gender}</td>

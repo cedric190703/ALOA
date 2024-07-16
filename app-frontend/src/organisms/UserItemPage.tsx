@@ -2,7 +2,6 @@ import {useNavigate, useParams} from "react-router-dom";
 import Sidebar from "./SideBar.tsx";
 import {ItemNav} from "../utils/utils.ts";
 import Card from "react-bootstrap/Card";
-import testProfile from "../assets/pexels-tima-miroshnichenko-5452293.jpg";
 
 const UserItemPage = () => {
     const Patients = [
