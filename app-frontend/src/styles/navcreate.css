@@ -5,23 +5,18 @@
 }
 
 .nav-create-container .nav-tabs {
-    border-bottom: 1px solid #dee2e6; /* Light border below tabs */
+    border-bottom: 1px solid #dee2e6;
 }
 
 .nav-create-container .nav-link {
-    background-color: #007bff; /* Blue background color */
-    color: white; /* White text color */
-    border-radius: 5px; /* Rounded corners */
-    padding: 10px 20px; /* Padding for better spacing */
-    transition: background-color 0.3s ease; /* Smooth background color transition */
-}
-
-.nav-create-container .nav-link.active {
-    background-color: #0056b3; /* Darker blue for the active tab */
-    color: white; /* Ensure text color is white */
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
 }
 
 .nav-create-container .nav-link:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    color: white; /* White text color on hover */
+    background-color: #0056b3;
+    color: white;
 }

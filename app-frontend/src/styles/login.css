@@ -199,3 +199,13 @@ body {
         width: 70%;
     }
 }
+
+@media screen and (max-width: 800px) {
+    .login-logo {
+        display: none;
+    }
+
+    .login-form {
+        width: 70%;
+    }
+}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Logo from '../assets/logoAloa.jpg';
 import { ItemNav } from '../utils/utils.ts';
 import { NavLink } from 'react-router-dom';
@@ -11,7 +11,19 @@ interface Props {
 }
 
 const Sidebar: React.FC<Props> = ({ items }) => {
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(window.innerWidth <= 1000);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setCollapsed(window.innerWidth <= 1000);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     const toggleSidebar = () => {
         setCollapsed(!collapsed);

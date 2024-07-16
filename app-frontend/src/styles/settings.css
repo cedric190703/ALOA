@@ -144,13 +144,13 @@
     color: black;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 800px) {
     .settings-modules {
         padding: 15px;
-        width: 80%;
+        width: 70%;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         border: 1px solid black;
         margin-bottom: 20px;
-        margin-left: 5%;
+        margin-left: 20%;
     }
 }

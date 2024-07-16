@@ -11,8 +11,8 @@ function NavCreate({ onSelect }: NavCreateProps) {
             <Nav
                 justify
                 variant="tabs"
-                defaultActiveKey="/home"
-                onSelect={onSelect} // Handle tab selection
+                defaultActiveKey="create-user"
+                onSelect={onSelect}
             >
                 <Nav.Item>
                     <Nav.Link eventKey="create-user">Create user</Nav.Link>
