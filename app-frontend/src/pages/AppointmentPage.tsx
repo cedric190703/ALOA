@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ItemNav } from "../utils/utils.ts";
 import Sidebar from "../organisms/SideBar.tsx";
-import CalendarInfo from '../organisms/calendarInfo.tsx';
+import CalendarInfo from '../organisms/CalendarInfo.tsx';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../styles/appointments.css';

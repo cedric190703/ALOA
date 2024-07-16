@@ -1,6 +1,6 @@
 import {ItemNav} from "../utils/utils.ts";
 import Sidebar from "../organisms/SideBar.tsx";
-import SettingsModule from "../molecules/settings.tsx";
+import SettingsModule from "../molecules/Settings.tsx";
 
 function SettingsPage() {
     return (

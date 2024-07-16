@@ -19,3 +19,9 @@ export enum SettingsType {
     Security = "security",
     AboutUs = "aboutus",
 }
+
+export enum GenderType {
+    Male = "male",
+    Female = "female",
+    Other = "other"
+}

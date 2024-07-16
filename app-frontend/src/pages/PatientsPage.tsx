@@ -1,6 +1,6 @@
 import { ItemNav, TriageType } from "../utils/utils";
 import Sidebar from "../organisms/SideBar";
-import ButtonInfo from '../atoms/buttonInfo';
+import ButtonInfo from '../atoms/ButtonInfo.tsx';
 import Table from 'react-bootstrap/Table';
 import { useNavigate } from 'react-router-dom';
 import '../styles/patients.css';
