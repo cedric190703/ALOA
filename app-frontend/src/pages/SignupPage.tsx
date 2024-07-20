@@ -3,6 +3,8 @@ import Logo from '../assets/logoAloa.jpg';
 import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import axios from "axios";
+import {sanitizeInput} from "../utils/utils.ts";
 import '../styles/login.css';
 
 function SignupPage() {
@@ -13,15 +15,42 @@ function SignupPage() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isDoctor, setIsDoctor] = useState(false);
     const [validated, setValidated] = useState(false);
+    const [error, setError] = useState('');
 
-    const handleSignup = (event: any) => {
+    const handleSignup = async (event: any) => {
         event.preventDefault();
         const form = event.currentTarget;
 
         if (form.checkValidity() === false || password !== confirmPassword) {
             event.stopPropagation();
-        } else {
-            // TODO: connect to the backend
+            setValidated(true);
+            setError('Passwords do not match or form is invalid.');
+            return;
+        }
+
+        const sanitizedEmail = sanitizeInput(email);
+        const sanitizedUsername = sanitizeInput(username);
+        const sanitizedPassword = sanitizeInput(password);
+
+        try {
+            const response = await axios.post('http://localhost:5050/record/register', {
+                email: sanitizedEmail,
+                username: sanitizedUsername,
+                password: sanitizedPassword,
+                doctor: isDoctor
+            }, {
+                withCredentials: true,
+            });
+
+            if (response.data.success) {
+                localStorage.setItem('token', response.data.token);
+                navigate('/home');
+            } else {
+                setError(response.data.message);
+            }
+        } catch (error) {
+            console.error(error);
+            setError('Signup failed. Please try again.');
         }
         setValidated(true);
     };
@@ -95,11 +124,12 @@ function SignupPage() {
                             onChange={(e) => setIsDoctor(e.target.checked)}
                         />
                     </Form.Group>
-                    <a href="/forgot-password">forgot your password?</a>
-                    <Button id="login-btn" type="submit" onClick={handleSignup}>Signup</Button>
+                    <a href="/forgot-password">Forgot your password?</a>
+                    <Button id="login-btn" type="submit">Signup</Button>
+                    {error && <p className="error-message">{error}</p>}
                 </Form>
                 <div className="bottom-form-login">
-                    <p>You have an account?</p>
+                    <p>Already have an account?</p>
                     <Button id="signup-btn" onClick={handleLogin}>Log in</Button>
                 </div>
             </div>

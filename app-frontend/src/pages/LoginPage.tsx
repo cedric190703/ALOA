@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Logo from '../assets/logoAloa.jpg';
 import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import {sanitizeInput} from "../utils/utils.ts";
+import Button from "react-bootstrap/Button";
 import '../styles/login.css';
 
 function LoginPage() {
@@ -10,25 +12,38 @@ function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [validated, setValidated] = useState(false);
+    const [error, setError] = useState('');
 
-    const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form = event.currentTarget;
-        if (form.checkValidity() === false) {
+        if (!form.checkValidity()) {
             event.stopPropagation();
         } else {
-            // TODO: connect to the backend
+            try {
+                const response = await axios.post('http://localhost:5050/record/login', {
+                    email: sanitizeInput(email),
+                    password: sanitizeInput(password),
+                }, {
+                    withCredentials: true,
+                });
+
+                if (response.data.success) {
+                    localStorage.setItem('token', response.data.token);
+                    navigate('/home');
+                } else {
+                    setError(response.data.message);
+                }
+            } catch (error) {
+                console.error(error);
+                setError('Login failed. Please try again.');
+            }
         }
         setValidated(true);
     };
 
     const handleSignup = () => {
         navigate('/signup');
-    };
-
-    // Basic sanitization function to remove any HTML tags from input
-    const sanitizeInput = (input: string) => {
-        return input.replace(/</g, "&lt;").replace(/>/g, "&gt;");
     };
 
     return (
@@ -64,6 +79,7 @@ function LoginPage() {
                             Please enter your password.
                         </Form.Control.Feedback>
                     </Form.Group>
+                    {error && <p className="error-message">{error}</p>}
                     <a href="/forgot-password">Forgot your password?</a>
                     <Button id="login-btn" type="submit">Log in</Button>
                 </Form>

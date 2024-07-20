@@ -12,29 +12,31 @@ import SettingsItemPage from './organisms/SettingsItemPage';
 import UserInfo from "./pages/UserInfo.tsx";
 import EditProfile from "./organisms/EditProfile.tsx";
 import UserItemPage from './organisms/UserItemPage';
+import ProtectedRoute from "./pages/ProtectedRoute.tsx";
 
 function App() {
-
     return (
         <div className={`${location.pathname === '/' ? 'Loading-background' : 'App' }`}>
             <Routes>
                 <Route path="/" element={<LoadingPage />} />
-                <Route path="/user" element={<UserInfo />} />
-                <Route path="/home" element={<HomePage />} />
-                <Route path="/settings" element={<SettingsPage />} />
-                <Route path="*" element={<NotFound />} />
-                <Route path="/edit" element={<EditProfile />} />
-                <Route path="/create" element={<CreatePage />} />
-                <Route path="/patients" element={<PatientsPage />} />
-                <Route path="/appointment" element={<AppointmentPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignupPage />} />
-                <Route path="/settings/:id" element={<SettingsItemPage />} />
-                <Route path="/patients/:id" element={<UserItemPage />} />
-                <Route path="/profile/editProfile" element={<EditProfile />} />
+                <Route path="*" element={<NotFound />} />
+
+                {/* Protected routes */}
+                <Route path="/user" element={<ProtectedRoute element={UserInfo} />} />
+                <Route path="/home" element={<ProtectedRoute element={HomePage} />} />
+                <Route path="/settings" element={<ProtectedRoute element={SettingsPage} />} />
+                <Route path="/edit" element={<ProtectedRoute element={EditProfile} />} />
+                <Route path="/create" element={<ProtectedRoute element={CreatePage} />} />
+                <Route path="/patients" element={<ProtectedRoute element={PatientsPage} />} />
+                <Route path="/appointment" element={<ProtectedRoute element={AppointmentPage} />} />
+                <Route path="/settings/:id" element={<ProtectedRoute element={SettingsItemPage} />} />
+                <Route path="/patients/:id" element={<ProtectedRoute element={UserItemPage} />} />
+                <Route path="/profile/editProfile" element={<ProtectedRoute element={EditProfile} />} />
             </Routes>
         </div>
     );
 }
 
-export default App
+export default App;

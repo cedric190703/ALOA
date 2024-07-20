@@ -25,3 +25,8 @@ export enum GenderType {
     Female = "female",
     Other = "other"
 }
+
+// Basic sanitization function to remove any HTML tags from input
+export const sanitizeInput = (input: string) => {
+    return input.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+};

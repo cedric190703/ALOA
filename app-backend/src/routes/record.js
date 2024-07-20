@@ -35,14 +35,19 @@ router.post("/register", async (req, res) => {
       doctor
     });
 
-    const token = createSecretToken(user._id);
+    const userToken = createSecretToken(user._id);
 
     // Create a token in the cookies
-    res.cookie("token", token, {
-      withCredentials: true,
-      httpOnly: false,
+    res.cookie("token", userToken, {
+      httpOnly: true, // Prevent JavaScript access
+      secure: false,   // Ensure the cookie is sent only over HTTPS
+      sameSite: 'Lax' // Mitigate CSRF attacks
     });
-    res.status(201).json({ message: "User signed in successfully", success: true, user });
+
+    res.status(201).json({ message: "User signed in successfully",
+      success: true,
+      token: userToken
+    });
 
   } catch (error) {
     console.error(error);
@@ -68,15 +73,19 @@ router.post("/login", async (req, res) => {
     }
 
     // Generate JWT token
-    const token = createSecretToken(user._id);
+    const userToken = createSecretToken(user._id);
 
-    // Set the token as a cookie
-    res.cookie("token", token, {
-      withCredentials: true,
-      httpOnly: false,
+    // Create a token in the cookies
+    res.cookie("token", userToken, {
+      httpOnly: true, // Prevent JavaScript access
+      secure: false,   // Ensure the cookie is sent only over HTTPS
+      sameSite: 'Lax' // Mitigate CSRF attacks
     });
 
-    res.status(201).json({ message: "User logged in successfully", success: true });
+    res.status(201).json({ message: "User logged in successfully",
+      success: true,
+      token: userToken
+    });
 
   } catch (error) {
     console.error(error);
