@@ -11,12 +11,9 @@ function NavCreate({ onSelect }: NavCreateProps) {
             <Nav
                 justify
                 variant="tabs"
-                defaultActiveKey="create-user"
+                defaultActiveKey="create-appointment"
                 onSelect={onSelect}
             >
-                <Nav.Item>
-                    <Nav.Link eventKey="create-user">Create user</Nav.Link>
-                </Nav.Item>
                 <Nav.Item>
                     <Nav.Link eventKey="create-appointment">Create appointment</Nav.Link>
                 </Nav.Item>

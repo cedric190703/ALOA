@@ -1,77 +1,43 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ItemNav, TriageType } from "../utils/utils";
 import Sidebar from "../organisms/SideBar";
 import ButtonInfo from '../atoms/ButtonInfo.tsx';
 import Table from 'react-bootstrap/Table';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from "../context/UserContext.tsx";
 import '../styles/patients.css';
 
 function PatientsPage() {
-    const navigate = useNavigate();
+    const { users } = useUser(); // Use the users from context
     const [searchTerm, setSearchTerm] = useState("");
+    const navigate = useNavigate();
 
-    const Patients = [
-        {
-            id: 1,
-            name: "name1",
-            Gender: "Male",
-            age: 19,
-            diagnostic: "Test",
-            Triage: TriageType.Emergency
-        },
-        {
-            id: 2,
-            name: "name2",
-            Gender: "Male",
-            age: 20,
-            diagnostic: "Test",
-            Triage: TriageType.Emergency
-        },
-        {
-            id: 3,
-            name: "name2",
-            Gender: "Male",
-            age: 20,
-            diagnostic: "Test",
-            Triage: TriageType.Emergency
-        },
-        {
-            id: 4,
-            name: "name2",
-            Gender: "Male",
-            age: 20,
-            diagnostic: "Test",
-            Triage: TriageType.Emergency
-        },
-        {
-            id: 5,
-            name: "name2",
-            Gender: "Male",
-            age: 20,
-            diagnostic: "Test",
-            Triage: TriageType.Emergency
-        },
-        {
-            id: 6,
-            name: "name2",
-            Gender: "Male",
-            age: 20,
-            diagnostic: "Test",
-            Triage: TriageType.Emergency
-        }
-    ];
-
-    const handleGoToPatient = (id: number) => {
+    // Navigate to patient details page
+    const handleGoToPatient = (id: string) => {
         navigate(`/patients/${id}`);
     }
 
-    const handleSearchChange = (event: any) => {
+    // Handle search input change
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
     }
 
-    const filteredPatients = Patients.filter(p =>
-        p.name.toLowerCase().includes(searchTerm.toLowerCase())
+    // Filter patients based on search term
+    const filteredPatients = users.filter(p =>
+        p.patient_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    // Get triage type string
+    const getTriageType = (triage: string) => {
+        switch (triage) {
+            case 'urgent':
+                return TriageType.Urgent;
+            case 'nonUrgent':
+                return TriageType.NonUrgent;
+            default:
+                return TriageType.Emergency;
+        }
+    }
 
     return (
         <div>
@@ -101,14 +67,14 @@ function PatientsPage() {
                             </thead>
                             <tbody>
                             {filteredPatients.map(p => (
-                                <tr key={p.id}>
-                                    <td>{p.name}</td>
-                                    <td>{p.Gender}</td>
-                                    <td>{p.age}</td>
-                                    <td>{p.diagnostic}</td>
-                                    <td>{p.Triage}</td>
+                                <tr key={p.uniqueId}>
+                                    <td>{p.patient_name}</td>
+                                    <td>{p.patient_gender ? "Male" : "Female"}</td>
+                                    <td>{p.patient_age}</td>
+                                    <td>{p.diagnosis}</td>
+                                    <td>{getTriageType(p.patient_triage)}</td>
                                     <td>
-                                        <ButtonInfo onClick={() => handleGoToPatient(p.id)} />
+                                        <ButtonInfo onClick={() => handleGoToPatient(p.uniqueId!)} />
                                     </td>
                                 </tr>
                             ))}

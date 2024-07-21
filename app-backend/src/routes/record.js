@@ -46,7 +46,8 @@ router.post("/register", async (req, res) => {
 
     res.status(201).json({ message: "User signed in successfully",
       success: true,
-      token: userToken
+      token: userToken,
+      userId: user._id
     });
 
   } catch (error) {
@@ -84,7 +85,8 @@ router.post("/login", async (req, res) => {
 
     res.status(201).json({ message: "User logged in successfully",
       success: true,
-      token: userToken
+      token: userToken,
+      userId: user._id
     });
 
   } catch (error) {
@@ -127,10 +129,9 @@ router.get("/secure-route", authMiddleware, (req, res) => {
 });
 
 
-
 // MEDICAL RECORD MANAGEMENT ---------------------------------------------------------------------
 
-// Route for managing medical records from a specific doctor
+// Route to get patients from a specific user
 router.get("/users", authMiddleware, async (req, res) => {
   try {
     const records = await MedicalRecord.find({ doctor: req.user._id });
@@ -140,16 +141,18 @@ router.get("/users", authMiddleware, async (req, res) => {
   }
 });
 
-// Route to get a medical record from a specific user
+// Backend endpoint - Get user info by ID
 router.get("/user/:id", authMiddleware, async (req, res) => {
   try {
-    const record = await MedicalRecord.findById(req.params.id).populate('doctor', 'email username');
-    if (!record) {
-      return res.status(404).send("Not found");
+    const user = await User.findById(req.params.id).select('-password');
+    if (!user) {
+      console.log("not found");
+      return res.status(404).send("User not found");
     }
-    res.status(200).send(record);
+    res.status(200).json(user); // Ensure response is JSON
   } catch (err) {
-    res.status(500).send("Error fetching record");
+    console.error(err);
+    res.status(500).send("Error fetching user");
   }
 });
 
@@ -196,7 +199,7 @@ router.patch("/user/update/:id", authMiddleware, async (req, res) => {
 });
 
 // Route to delete a user
-router.delete("/user/:id", authMiddleware, async (req, res) => {
+router.delete("/user/delete/:id", authMiddleware, async (req, res) => {
   try {
     const record = await MedicalRecord.findByIdAndDelete(req.params.id);
     if (!record) {

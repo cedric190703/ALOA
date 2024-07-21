@@ -4,10 +4,9 @@ import Sidebar from "../organisms/SideBar.tsx";
 import NavCreate from "../molecules/NavCreate.tsx";
 import CreateAppointment from "../organisms/CreateAppointment.tsx";
 import CreateMedicalRecord from "../organisms/CreateMedicalRecord.tsx";
-import CreateUser from "../organisms/CreateUser.tsx";
 
 function CreatePage() {
-    const [activeTab, setActiveTab] = useState<string | null>('create-user'); // Default tab
+    const [activeTab, setActiveTab] = useState<string | null>('create-appointment'); // Default tab
 
     // Function to handle tab selection
     const handleSelect = (selectedKey: string | null) => {
@@ -19,7 +18,6 @@ function CreatePage() {
             <Sidebar items={ItemNav.Create} />
             <NavCreate onSelect={handleSelect} />
             <div className="content-container">
-                {activeTab === 'create-user' && <CreateUser />}
                 {activeTab === 'create-appointment' && <CreateAppointment />}
                 {activeTab === 'create-medical-record' && <CreateMedicalRecord />}
             </div>

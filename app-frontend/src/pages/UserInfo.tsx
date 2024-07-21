@@ -1,26 +1,38 @@
-import React from 'react';
+// UserInfo.tsx
+import React, { useEffect, useState } from 'react';
 import { ItemNav } from '../utils/utils';
 import Sidebar from '../organisms/SideBar';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import testProfile from '../assets/pexels-tima-miroshnichenko-5452293.jpg';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useUser } from '../context/UserContext';
 import '../styles/profile.css';
 
-// Example user data for the template of the frontend
-const user = {
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    isDoctor: true,
-    patients: '42',
-    specialization: "brain surgery",
-    profilePicture: testProfile
-};
-
 const UserInfo: React.FC = () => {
+    const { user } = useUser(); // Use the user from context
+    const [date, setDate] = useState<Date | null>(null);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user && user.createdAt) {
+            setDate(new Date(user.createdAt));
+        }
+    }, [user]);
+
     const handleEditProfile = () => {
         navigate("/profile/editProfile");
+    };
+
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+    if (!user) {
+        return (
+            <div className="user-info-page">
+                <Sidebar items={ItemNav.User}/>
+                <h1>Loading ...</h1>
+            </div>
+        );
     }
 
     return (
@@ -28,22 +40,29 @@ const UserInfo: React.FC = () => {
             <Sidebar items={ItemNav.User} />
             <div className="profile-card-container">
                 <Card className="profile-card">
-                    <Card.Img variant="top" src={user.profilePicture} className="profile-card-img" />
+                    <Card.Img
+                        variant="top"
+                        src={testProfile}
+                        className="profile-card-img"
+                    />
                     <Card.Body>
-                        <Card.Title className="profile-card-title">{user.name}</Card.Title>
+                        <Card.Title className="profile-card-title">Username: {user.username}</Card.Title>
                         <Card.Text>
                             <strong>Email:</strong> {user.email}
                         </Card.Text>
                         <Card.Text>
-                            <strong>Role:</strong> {user.isDoctor ? 'Doctor' : 'Patient'}
+                            <strong>Role:</strong> {user.doctor ? 'Doctor' : 'Patient'}
                         </Card.Text>
                         <Card.Text>
-                            <strong>Number of patients:</strong> {user.patients}
+                            <strong>Created at:</strong> {date ? date.toLocaleDateString("en-US", options) : 'N/A'}
                         </Card.Text>
-                        <Card.Text>
-                            <strong>specialization:</strong> {user.specialization}
-                        </Card.Text>
-                        <Button variant="primary" onClick={handleEditProfile} className="profile-edit-btn">Edit Profile</Button>
+                        <Button
+                            variant="primary"
+                            onClick={handleEditProfile}
+                            className="profile-edit-btn"
+                        >
+                            Edit Profile
+                        </Button>
                     </Card.Body>
                 </Card>
             </div>
