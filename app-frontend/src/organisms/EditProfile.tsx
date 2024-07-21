@@ -34,7 +34,7 @@ function EditProfile() {
                         withCredentials: true,
                     });
 
-                    if (!response.data.success) {
+                    if (response.status === 200) {
                         setUser(response.data);
                     } else {
                         setError(response.data.message);

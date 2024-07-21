@@ -13,6 +13,17 @@ const router = express.Router();
 
 // USER AUTHENTICATION ---------------------------------------------------------------------
 
+// Logout endpoint
+router.post("/logout", async (req, res) => {
+  try {
+    res.clearCookie("token");
+    res.status(200).send({message: "User logged out successfully"});
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({error: error});
+  }
+});
+
 // Authentication endpoint - Register
 router.post("/register", async (req, res) => {
   const { email, username, password, doctor } = req.body;

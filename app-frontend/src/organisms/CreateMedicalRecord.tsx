@@ -50,7 +50,7 @@ function CreateMedicalRecord() {
                     withCredentials: true,
                 });
 
-                if (response.data.success) {
+                if (response.status === 201) {
                     setError('');
                     console.log("SUCCEED");
                     succeedCreateApp();
