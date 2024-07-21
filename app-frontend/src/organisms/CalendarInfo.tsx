@@ -1,18 +1,10 @@
 import React from "react";
 import Table from 'react-bootstrap/Table';
+import { Appointments } from '../utils/utils';
 import '../styles/appointments.css';
 
-interface Appointment {
-    patient_name: string;
-    appointmentDate: Date;
-    appointmentTime: String;
-    reason: String;
-    status: String;
-    createdAt: Date;
-}
-
 interface CalendarInfoProps {
-    appointments: Appointment[];
+    appointments: Appointments[];
 }
 
 const CalendarInfo : React.FC<CalendarInfoProps> = ({ appointments }) => {

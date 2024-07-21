@@ -1,36 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-
-interface User {
-    _id: string;
-    email: string;
-    username: string;
-    doctor: boolean;
-    createdAt: string;
-}
-
-interface Patient {
-    patient_name: string;
-    patient_gender: boolean;
-    patient_age: number;
-    diagnosis: string;
-    doctor: string;
-    pathology: string[];
-    date_recorded: Date;
-    patient_triage: string;
-    notes?: string;
-    uniqueId?: string; // Optional unique ID for patients
-}
-
-interface Appointments {
-    patient_name: string;
-    appointmentDate: Date;
-    appointmentTime: String;
-    reason: String;
-    status: String;
-    createdAt: Date;
-}
+import {Appointments, Patient, User} from "../utils/utils.ts";
 
 interface UserContextType {
     user: User | null;

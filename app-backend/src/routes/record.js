@@ -173,6 +173,8 @@ router.post("/user/create", authMiddleware, async (req, res) => {
     let newRecord = new MedicalRecord({
       patient_name: req.body.patient_name,
       patient_age: req.body.patient_age,
+      patient_gender: req.body.patient_gender,
+      patient_triage: req.body.patient_triage,
       diagnosis: req.body.diagnosis,
       doctor: req.user._id,
       pathology: req.body.pathology,

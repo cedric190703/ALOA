@@ -25,7 +25,7 @@ const appointmentSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: ['urgent', 'nonUrgent', 'emergency'],
-        default: 'urgen',
+        default: 'urgent',
     },
     createdAt: {
         type: Date,

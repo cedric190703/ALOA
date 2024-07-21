@@ -1,13 +1,16 @@
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import {TriageType} from '../utils/utils.ts';
+import {Appointments, TriageType} from '../utils/utils.ts';
 import React, {useState} from "react";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import { useUser } from "../context/UserContext.tsx";
+import 'react-toastify/dist/ReactToastify.css';
 import '../styles/create.css';
 
 function CreateAppointment() {
+    const { appointments, setAppointments } = useUser();
     const [patientName, setPatientName] = useState('');
-    const [doctorName, setDoctorName] = useState('');
     const [date, setDate] = useState<Date | null>(null);
     const [time, setTime] = useState<Date | null>(null);
     const [reason, setReason] = useState('');
@@ -17,6 +20,18 @@ function CreateAppointment() {
 
     const dark: boolean = JSON.parse(localStorage.getItem('dark') || 'false');
     document.body.style.backgroundColor = dark ? "#000000" : "#FFFFFF";
+
+    const showToastSucceed = () => {
+        toast.success("Succeed to create a new appointment", {
+            position: "top-center"
+        });
+    };
+
+    const showToastFailed = () => {
+        toast.success("Fail to create a new appointment", {
+            position: "top-center"
+        });
+    };
 
     const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const timeString = e.target.value;
@@ -45,12 +60,24 @@ function CreateAppointment() {
                 });
 
                 if (response.status === 201) {
+                    const app : Appointments = {
+                        patient_name: patientName,
+                        appointmentDate: date,
+                        appointmentTime: time,
+                        reason: reason,
+                        status: status.toString(),
+                        createdAt: Date.now(),
+                    };
+                    setAppointments([...appointments, app]);
                     setError('');
-                    console.log("SUCCEED");
+                    showToastSucceed();
                 } else {
                     setError(response.data.message);
+                    console.log(error);
+                    showToastFailed();
                 }
             } catch (error) {
+                showToastFailed();
                 console.error(error);
                 setError('Signup failed. Please try again.');
             }
@@ -63,7 +90,7 @@ function CreateAppointment() {
             <h1 className="create-user-title">Create an Appointment</h1>
             <div className="create-user-form">
                 <Form noValidate validated={validated} onSubmit={handleCreateAppointment}>
-
+                    <ToastContainer />
                     <Form.Group controlId="formBasicText" className="item-create-user">
                         <Form.Control
                             type="text"
@@ -74,20 +101,6 @@ function CreateAppointment() {
                         />
                         <Form.Control.Feedback type="invalid">
                             Please enter the name of the patient.
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    <Form.Group controlId="formBasicText" className="item-create-user">
-                        <Form.Label>Doctor's Name</Form.Label>
-                        <Form.Control
-                            type="text"
-                            placeholder="Doctor's name"
-                            value={doctorName}
-                            onChange={(e) => setDoctorName(e.target.value)}
-                            required
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            Please enter the name of the doctor.
                         </Form.Control.Feedback>
                     </Form.Group>
 

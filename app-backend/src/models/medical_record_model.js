@@ -31,7 +31,8 @@ const MedicalSchema = new mongoose.Schema({
     },
     patient_triage: {
         type: String,
-        required: true,
+        enum: ['urgent', 'nonUrgent', 'emergency'],
+        default: 'urgent',
     },
     notes: {
         type: String,
