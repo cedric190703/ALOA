@@ -6,6 +6,14 @@
     padding: 20px;
 }
 
+.back-btn {
+    position: absolute;
+}
+
+.create-user-container {
+    margin-top: 10vh;
+}
+
 .profile-card-container,
 .edit-profile-container
 {

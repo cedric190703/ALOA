@@ -176,7 +176,7 @@ router.post("/user/create", authMiddleware, async (req, res) => {
 });
 
 // Route to update a user
-router.patch("/user/update/:id", authMiddleware, async (req, res) => {
+router.patch("/users/update/:id", authMiddleware, async (req, res) => {
   try {
     const updates = {
       patient_name: req.body.patient_name,
@@ -188,6 +188,26 @@ router.patch("/user/update/:id", authMiddleware, async (req, res) => {
     };
 
     const record = await MedicalRecord.findByIdAndUpdate(req.params.id, updates, { new: true }).populate('doctor', 'email username');
+    if (!record) {
+      return res.status(404).send("No records found");
+    }
+    res.status(200).send(record);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error updating record");
+  }
+});
+
+// Route to update the user
+router.patch("/user/update/:id", authMiddleware, async (req, res) => {
+  try {
+    const updates = {
+      email: req.body.email,
+      username: req.body.username,
+      doctor: req.body.doctor,
+    };
+
+    const record = await User.findByIdAndUpdate(req.params.id, updates, { new: true }).populate('doctor', 'email username');
     if (!record) {
       return res.status(404).send("No records found");
     }

@@ -1,11 +1,24 @@
+import React from "react";
 import Table from 'react-bootstrap/Table';
 import '../styles/appointments.css';
 
-function CalendarInfo() {
+interface Appointment {
+    patient_name: string;
+    appointmentDate: Date;
+    appointmentTime: String;
+    reason: String;
+    status: String;
+    createdAt: Date;
+}
+
+interface CalendarInfoProps {
+    appointments: Appointment[];
+}
+
+const CalendarInfo : React.FC<CalendarInfoProps> = ({ appointments }) => {
     let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
     const dark: boolean = JSON.parse(localStorage.getItem('dark') || 'false');
-    let today  = new Date();
 
     return (
         <div className="calendar-info-container">
@@ -16,17 +29,19 @@ function CalendarInfo() {
                     <tr>
                         <th>Date</th>
                         <th>Patient name</th>
-                        <th>Doctor name</th>
+                        <th>Status</th>
                         <th>Reason</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>{today.toLocaleDateString("en-US", options)}</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>Test</td>
-                    </tr>
+                    {appointments.map((app, index) => (
+                        <tr key={index}>
+                            <td>{new Date(app.appointmentDate).toLocaleDateString("en-US", options)}</td>
+                            <td>{app.patient_name}</td>
+                            <td>{app.status}</td>
+                            <td>{app.reason}</td>
+                        </tr>
+                    ))}
                     </tbody>
                 </Table>
             </div>

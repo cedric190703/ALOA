@@ -47,14 +47,11 @@ function CreateAppointment() {
                 if (response.data.success) {
                     setError('');
                     console.log("SUCCEED");
-                    succeedCreateApp();
                 } else {
-                    failedCreateApp();
                     setError(response.data.message);
                 }
             } catch (error) {
                 console.error(error);
-                failedCreateApp();
                 setError('Signup failed. Please try again.');
             }
         }

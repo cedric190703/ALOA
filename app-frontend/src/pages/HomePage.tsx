@@ -6,7 +6,6 @@ import '../styles/home.css';
 const HomePage: React.FC = () => {
     const dark: boolean = JSON.parse(localStorage.getItem('dark') || 'false');
     document.body.style.backgroundColor = dark ? "#000000" : "#FFFFFF";
-    console.log(dark);
 
     return (
         <div className="home-page-container" style={{ backgroundColor: dark ? 'black' : 'white', color: dark ? 'white' : 'black' }}>

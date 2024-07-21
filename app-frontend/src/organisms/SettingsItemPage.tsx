@@ -51,7 +51,7 @@ const SettingsItemPage: React.FC = () => {
     return (
         <div className="settings-item-container" style={{ backgroundColor : lightMode ? 'black' : 'white' }}>
             <button id='get-back' onClick={getBack}>
-                Retour
+                Back
             </button>
             <h1 style={{ color : lightMode ? 'white' : 'black' }}>{item.title}</h1>
             <div className="section-items-settings">

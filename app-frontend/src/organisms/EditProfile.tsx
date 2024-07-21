@@ -3,29 +3,64 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {ItemNav} from "../utils/utils.ts";
 import Sidebar from "./SideBar.tsx";
+import { useNavigate } from "react-router-dom";
+import { useUser } from '../context/UserContext.tsx';
+import axios from "axios";
 import '../styles/profile.css';
 
 function EditProfile() {
-    const [age, setAge] = useState('42');
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [isDoctor, setIsDoctor] = useState<boolean>(false);
+    const { user, setUser } = useUser();
+    const [name, setName] = useState(user?.username);
+    const [email, setEmail] = useState(user?.email);
+    const [isDoctor, setIsDoctor] = useState(user?.doctor);
     const [validated, setValidated] = useState(false);
+    const navigate = useNavigate();
+    const [error, setError] = useState('');
 
-    const handleEdit = (event: any) => {
+    const handleEdit = async (event: any) => {
         event.preventDefault();
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.stopPropagation();
         } else {
-            // TODO: connect to the backend : create a user
+            try {
+                const userId = localStorage.getItem("userId");
+                if (userId) {
+                    const response = await axios.patch(`http://localhost:5050/record/user/update/${userId}`, {
+                        email: email,
+                        username: name,
+                        doctor: isDoctor
+                    }, {
+                        withCredentials: true,
+                    });
+
+                    if (!response.data.success) {
+                        setUser(response.data);
+                    } else {
+                        setError(response.data.message);
+                    }
+                } else {
+                    setError('Edit fail. Please try again');
+                }
+
+            } catch (error) {
+                console.error(error);
+                setError('Edit fail. Please try again.');
+            }
         }
         setValidated(true);
     };
 
+    const getBack = () => {
+        navigate(`/user`);
+    }
+
     return (
         <div className="edit-profile-container">
-            <Sidebar items={ItemNav.User} />
+            <button id='get-back' className="back-btn" onClick={getBack}>
+                Back
+            </button>
+            <Sidebar items={ItemNav.User}/>
             <div className="create-user-container">
                 <h1 className="create-user-title">Edit Profile</h1>
                 <div className="create-user-form">
@@ -66,19 +101,7 @@ function EditProfile() {
                             />
                         </Form.Group>
 
-                        <Form.Group controlId="formBasicText" className="item-create-user">
-                            <Form.Control
-                                type="text"
-                                placeholder="Age"
-                                value={age}
-                                onChange={(e) => setAge(e.target.value)}
-                                required
-                            />
-                            <Form.Control.Feedback type="invalid">
-                                Please enter the age.
-                            </Form.Control.Feedback>
-                        </Form.Group>
-
+                        {error && <p className="error-message">{error}</p>}
                         <Button id="login-btn" type="submit">Submit</Button>
                     </Form>
                 </div>
