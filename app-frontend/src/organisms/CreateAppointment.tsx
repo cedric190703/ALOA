@@ -2,8 +2,6 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {TriageType} from '../utils/utils.ts';
 import React, {useState} from "react";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import '../styles/create.css';
 
@@ -19,18 +17,6 @@ function CreateAppointment() {
 
     const dark: boolean = JSON.parse(localStorage.getItem('dark') || 'false');
     document.body.style.backgroundColor = dark ? "#000000" : "#FFFFFF";
-
-    const succeedCreateApp = () => {
-        toast("Record created successfully!", {
-            autoClose: 3000
-        });
-    };
-
-    const failedCreateApp = () => {
-        toast("Failed to create record!", {
-            autoClose: 3000
-        });
-    };
 
     const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const timeString = e.target.value;

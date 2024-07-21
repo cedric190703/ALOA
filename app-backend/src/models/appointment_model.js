@@ -2,8 +2,7 @@ import mongoose from "mongoose";
 
 const appointmentSchema = new mongoose.Schema({
     patient: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        type: String,
         required: [true, "Patient reference is required"]
     },
     doctor: {
@@ -25,8 +24,8 @@ const appointmentSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['Pending', 'Confirmed', 'Cancelled'],
-        default: 'Pending',
+        enum: ['urgent', 'nonUrgent', 'emergency'],
+        default: 'urgen',
     },
     createdAt: {
         type: Date,
