@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import LogoutButton from '../atoms/LogoutButton';
 import '../styles/settings.css';
@@ -12,7 +12,12 @@ interface SettingsDetails {
 const SettingsItemPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const [lightMode, setLightMode] = useState<boolean>(() => JSON.parse(localStorage.getItem('lightMode') || 'true'));
+    const [lightMode, setLightMode] = useState<boolean>(() => JSON.parse(localStorage.getItem('dark') || 'false'));
+    document.body.style.backgroundColor = lightMode ? "#000000" : "#FFFFFF";
+
+    useEffect(() => {
+        localStorage.setItem('dark', JSON.stringify(lightMode));
+    }, [lightMode]);
 
     const settingsDetails: { [key: string]: SettingsDetails } = {
         "1": {
@@ -44,16 +49,16 @@ const SettingsItemPage: React.FC = () => {
     }
 
     return (
-        <div className="settings-item-container">
+        <div className="settings-item-container" style={{ backgroundColor : lightMode ? 'black' : 'white' }}>
             <button id='get-back' onClick={getBack}>
                 Retour
             </button>
-            <h1>{item.title}</h1>
+            <h1 style={{ color : lightMode ? 'white' : 'black' }}>{item.title}</h1>
             <div className="section-items-settings">
                 <p>{item.description}</p>
                 {id === "1" && (
                     <div className="option-item">
-                        <h3 className="min-value">Your luminosity is : {lightMode ? 'light' : 'dark'}</h3>
+                        <h3 className="min-value">Your luminosity is : {lightMode ? 'dark' : 'light'}</h3>
                         <button id="luminosity-btn" onClick={() => setLightMode(!lightMode)}>
                             Change Luminosity
                         </button>

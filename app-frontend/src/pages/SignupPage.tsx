@@ -17,6 +17,9 @@ function SignupPage() {
     const [validated, setValidated] = useState(false);
     const [error, setError] = useState('');
 
+    const dark: boolean = JSON.parse(localStorage.getItem('dark') || 'false');
+    document.body.style.backgroundColor = dark ? "#000000" : "#FFFFFF";
+
     const handleSignup = async (event: any) => {
         event.preventDefault();
         const form = event.currentTarget;
@@ -61,7 +64,7 @@ function SignupPage() {
     };
 
     return (
-        <div className="login-container">
+        <div className="login-container" style={{ backgroundColor: dark ? 'black' : 'white' }}>
             <div className="login-logo">
                 <img src={Logo} alt="Logo" />
             </div>

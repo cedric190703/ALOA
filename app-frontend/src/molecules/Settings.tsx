@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import ButtonSettings from '../atoms/ButtonSettings';
 import {SettingsType} from '../utils/utils.ts';
 import {useNavigate} from "react-router-dom";
@@ -6,12 +6,9 @@ import '../styles/settings.css';
 
 const SettingsModule : React.FC = () => {
     const navigate = useNavigate();
-    const [themeMode, setThemeMode] = useState(true);
-    useEffect(() => {
-        const lightMode : boolean = JSON.parse(localStorage.getItem('lightMode') || 'true');
-        setThemeMode(lightMode);
-        document.body.style.backgroundColor = lightMode ? 'white' : '#282A36';
-    }, []);
+
+    const dark: boolean = JSON.parse(localStorage.getItem('dark') || 'false');
+    document.body.style.backgroundColor = dark ? "#000000" : "#FFFFFF";
 
     const allSettings = [
         {
@@ -45,7 +42,7 @@ const SettingsModule : React.FC = () => {
     }
 
     return (
-        <div className="settings-container" style={{ backgroundColor: themeMode ? 'white' : '#282A36' }}>
+        <div className="settings-container" style={{ backgroundColor: dark ? "#000000" : "#fff" }}>
             <ul className="settings-grid">
                 {allSettings.map(doc => (
                     <li key={doc.id}>

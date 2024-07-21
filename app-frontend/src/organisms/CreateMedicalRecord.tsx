@@ -2,6 +2,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {GenderType, TriageType} from "../utils/utils.ts";
 import {useState} from "react";
+import axios from "axios";
+import {toast} from "react-toastify";
 import '../styles/create.css';
 
 function CreateMedicalRecord() {
@@ -14,20 +16,59 @@ function CreateMedicalRecord() {
     const [status, setStatus] = useState<TriageType>(TriageType.NonUrgent);
     const [notes, setNotes] = useState('');
     const [validated, setValidated] = useState(false);
+    const [error, setError] = useState('');
 
-    const handleCreateUser = (event: any) => {
+    const dark: boolean = JSON.parse(localStorage.getItem('dark') || 'false');
+    document.body.style.backgroundColor = dark ? "#000000" : "#FFFFFF";
+
+    const succeedCreateApp = () => {
+        toast("Record created successfully!", {
+            autoClose: 3000
+        });
+    };
+
+    const failedCreateApp = () => {
+        toast("Failed to create record!", {
+            autoClose: 3000
+        });
+    };
+
+    const handleCreateUser = async (event: any) => {
         event.preventDefault();
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.stopPropagation();
         } else {
-            // TODO: connect to the backend : create a user
+            try {
+                const response = await axios.post('http://localhost:5050/record/user/create', {
+                    patient_name: name,
+                    patient_age: age,
+                    diagnosis: diagnostic,
+                    pathology: pathology,
+                    notes: notes
+                }, {
+                    withCredentials: true,
+                });
+
+                if (response.data.success) {
+                    setError('');
+                    console.log("SUCCEED");
+                    succeedCreateApp();
+                } else {
+                    failedCreateApp();
+                    setError(response.data.message);
+                }
+            } catch (error) {
+                console.error(error);
+                failedCreateApp();
+                setError('Signup failed. Please try again.');
+            }
         }
         setValidated(true);
     };
 
     return (
-        <div className="create-user-container">
+        <div className="create-user-container" style={{ backgroundColor: dark ? 'black' : 'white', color: dark ? 'white' : 'black' }}>
             <h1 className="create-user-title">Create Medical Record</h1>
             <div className="create-user-form">
                 <Form noValidate validated={validated} onSubmit={handleCreateUser}>
@@ -133,6 +174,7 @@ function CreateMedicalRecord() {
                             Please enter the patient's notes.
                         </Form.Control.Feedback>
                     </Form.Group>
+                    {error && <p className="error-message">{error}</p>}
 
                     <Button id="login-btn" type="submit">Create user</Button>
                 </Form>

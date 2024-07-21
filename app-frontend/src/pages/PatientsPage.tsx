@@ -12,6 +12,9 @@ function PatientsPage() {
     const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
 
+    const dark: boolean = JSON.parse(localStorage.getItem('dark') || 'false');
+    document.body.style.backgroundColor = dark ? "#000000" : "#FFFFFF";
+
     // Navigate to patient details page
     const handleGoToPatient = (id: string) => {
         navigate(`/patients/${id}`);
@@ -40,11 +43,11 @@ function PatientsPage() {
     }
 
     return (
-        <div>
+        <div style={{ backgroundColor: dark ? 'black' : 'white', color : dark ? 'white' : 'black' }}>
             <Sidebar items={ItemNav.Patients} />
             <div className="patients-container">
                 <div className="main-content">
-                    <h1>Patients</h1>
+                    <h1 style={{ color : dark ? 'white' : 'black' }}>Patients</h1>
                     <input
                         type="text"
                         placeholder="Search patients..."
@@ -68,11 +71,11 @@ function PatientsPage() {
                             <tbody>
                             {filteredPatients.map(p => (
                                 <tr key={p.uniqueId}>
-                                    <td>{p.patient_name}</td>
-                                    <td>{p.patient_gender ? "Male" : "Female"}</td>
-                                    <td>{p.patient_age}</td>
-                                    <td>{p.diagnosis}</td>
-                                    <td>{getTriageType(p.patient_triage)}</td>
+                                    <td style={{ color : dark ? 'white' : 'black' }}>{p.patient_name}</td>
+                                    <td style={{ color : dark ? 'white' : 'black' }}>{p.patient_gender ? "Male" : "Female"}</td>
+                                    <td style={{ color : dark ? 'white' : 'black' }}>{p.patient_age}</td>
+                                    <td style={{ color : dark ? 'white' : 'black' }}>{p.diagnosis}</td>
+                                    <td style={{ color : dark ? 'white' : 'black' }}>{getTriageType(p.patient_triage)}</td>
                                     <td>
                                         <ButtonInfo onClick={() => handleGoToPatient(p.uniqueId!)} />
                                     </td>

@@ -10,7 +10,7 @@ import AppointmentPage from './pages/AppointmentPage';
 import PatientsPage from './pages/PatientsPage';
 import NotFound from './pages/NotFound';
 import SettingsItemPage from './organisms/SettingsItemPage';
-import UserInfo from "./pages/UserInfo";
+import Profile from "./pages/Profile.tsx";
 import EditProfile from "./organisms/EditProfile";
 import UserItemPage from './organisms/UserItemPage';
 import ProtectedRoute from "./pages/ProtectedRoute";
@@ -28,7 +28,7 @@ const App: React.FC = () => {
                     <Route path="*" element={<NotFound />} />
 
                     {/* Protected routes */}
-                    <Route path="/user" element={<ProtectedRoute element={UserInfo} />} />
+                    <Route path="/user" element={<ProtectedRoute element={Profile} />} />
                     <Route path="/home" element={<ProtectedRoute element={HomePage} />} />
                     <Route path="/settings" element={<ProtectedRoute element={SettingsPage} />} />
                     <Route path="/edit" element={<ProtectedRoute element={EditProfile} />} />

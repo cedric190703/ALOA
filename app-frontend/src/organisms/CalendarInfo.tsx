@@ -3,11 +3,13 @@ import '../styles/appointments.css';
 
 function CalendarInfo() {
     let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+    const dark: boolean = JSON.parse(localStorage.getItem('dark') || 'false');
     let today  = new Date();
 
     return (
         <div className="calendar-info-container">
-            <h2>Calendar Info</h2>
+            <h2 style={{ color : dark ? 'white' : 'black' }}>Calendar Info</h2>
             <div className="calendar-info">
                 <Table striped bordered hover size="sm">
                     <thead>

@@ -7,6 +7,8 @@ import CreateMedicalRecord from "../organisms/CreateMedicalRecord.tsx";
 
 function CreatePage() {
     const [activeTab, setActiveTab] = useState<string | null>('create-appointment'); // Default tab
+    const dark: boolean = JSON.parse(localStorage.getItem('dark') || 'false');
+    document.body.style.backgroundColor = dark ? "#000000" : "#FFFFFF";
 
     // Function to handle tab selection
     const handleSelect = (selectedKey: string | null) => {
@@ -14,7 +16,7 @@ function CreatePage() {
     };
 
     return (
-        <div>
+        <div style={{ backgroundColor : dark ? 'black' : 'white' }}>
             <Sidebar items={ItemNav.Create} />
             <NavCreate onSelect={handleSelect} />
             <div className="content-container">

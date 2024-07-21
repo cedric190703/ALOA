@@ -4,11 +4,15 @@ import { ItemNav } from '../utils/utils.ts';
 import '../styles/home.css';
 
 const HomePage: React.FC = () => {
+    const dark: boolean = JSON.parse(localStorage.getItem('dark') || 'false');
+    document.body.style.backgroundColor = dark ? "#000000" : "#FFFFFF";
+    console.log(dark);
+
     return (
-        <div className="home-page-container">
+        <div className="home-page-container" style={{ backgroundColor: dark ? 'black' : 'white', color: dark ? 'white' : 'black' }}>
             <Sidebar items={ItemNav.Home} />
             <div className="main-content">
-                <h1>Welcome to Aloa</h1>
+                <h1  style={{ color: dark ? 'white' : 'black' }}>Welcome to Aloa</h1>
                 <p>
                     This Electronic Health Record (EHR) system is designed to streamline the management of patient records, appointments, and other crucial information for healthcare providers. Here’s a brief overview of what you’ll find in this application:
                 </p>

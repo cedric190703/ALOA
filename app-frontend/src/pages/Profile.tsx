@@ -1,4 +1,3 @@
-// UserInfo.tsx
 import React, { useEffect, useState } from 'react';
 import { ItemNav } from '../utils/utils';
 import Sidebar from '../organisms/SideBar';
@@ -9,10 +8,13 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 import '../styles/profile.css';
 
-const UserInfo: React.FC = () => {
+const Profile: React.FC = () => {
     const { user } = useUser(); // Use the user from context
     const [date, setDate] = useState<Date | null>(null);
     const navigate = useNavigate();
+
+    const dark: boolean = JSON.parse(localStorage.getItem('dark') || 'false');
+    document.body.style.backgroundColor = dark ? "#000000" : "#FFFFFF";
 
     useEffect(() => {
         if (user && user.createdAt) {
@@ -36,10 +38,10 @@ const UserInfo: React.FC = () => {
     }
 
     return (
-        <div className="user-info-page">
+        <div className="user-info-page" style={{ backgroundColor : dark ? 'black' : 'white' }}>
             <Sidebar items={ItemNav.User} />
-            <div className="profile-card-container">
-                <Card className="profile-card">
+            <div className="profile-card-container" style={{ backgroundColor : dark ? 'black' : 'white' }}>
+                <Card className="profile-card" style={{ backgroundColor : dark ? 'black' : 'white', color : dark ? 'white' : 'black' }}>
                     <Card.Img
                         variant="top"
                         src={testProfile}
@@ -70,4 +72,4 @@ const UserInfo: React.FC = () => {
     );
 };
 
-export default UserInfo;
+export default Profile;
