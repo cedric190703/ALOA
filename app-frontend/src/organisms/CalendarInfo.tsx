@@ -11,6 +11,16 @@ const CalendarInfo : React.FC<CalendarInfoProps> = ({ appointments }) => {
     let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
     const dark: boolean = JSON.parse(localStorage.getItem('dark') || 'false');
+    const getReason = (reason : string) => {
+        switch (reason) {
+            case 'urgent':
+                return 'Urgent';
+            case 'nonUrgent':
+                return 'Non Urgent';
+            default:
+                return 'emergency';
+        }
+    }
 
     return (
         <div className="calendar-info-container">
@@ -29,8 +39,8 @@ const CalendarInfo : React.FC<CalendarInfoProps> = ({ appointments }) => {
                     {appointments.map((app, index) => (
                         <tr key={index}>
                             <td>{new Date(app.appointmentDate).toLocaleDateString("en-US", options)}</td>
-                            <td>{app.patient_name}</td>
-                            <td>{app.status}</td>
+                            <td>{app.patient}</td>
+                            <td>{getReason(app.status)}</td>
                             <td>{app.reason}</td>
                         </tr>
                     ))}

@@ -30,6 +30,8 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     // Fetch user information
     const fetchUserInfo = async () => {
         try {
+            console.log('Call the context');
+
             const userId = localStorage.getItem("userId");
             if (userId) {
                 const response = await axios.get(`http://localhost:5050/record/user/${userId}`, { withCredentials: true });
