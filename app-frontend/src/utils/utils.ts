@@ -60,3 +60,15 @@ export interface Appointments {
     status: String;
     createdAt: Date;
 }
+
+// Get triage type string
+export const getTriageType = (triage: string) => {
+    switch (triage) {
+        case 'urgent':
+            return "Urgent";
+        case 'nonUrgent':
+            return "Non urgent";
+        default:
+            return "Emergency";
+    }
+}

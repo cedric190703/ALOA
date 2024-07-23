@@ -56,7 +56,7 @@ function EditProfile() {
     }
 
     return (
-        <div className="edit-profile-container">
+        <div className="user-info-page">
             <button id='get-back' className="back-btn" onClick={getBack}>
                 Back
             </button>

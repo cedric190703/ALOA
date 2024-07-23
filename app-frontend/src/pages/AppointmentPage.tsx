@@ -44,6 +44,24 @@ function AppointmentPage() {
         };
     });
 
+    // Function to customize event styles based on the theme or any other criteria
+    const eventStyleGetter = (event: any) => {
+        const dark: boolean = JSON.parse(localStorage.getItem('dark') || 'false');
+        const backgroundColor = dark ? '#555' : '#007bff'; // Dark and light theme colors
+        const color = dark ? 'white' : 'black'; // Text color based on theme
+
+        return {
+            style: {
+                backgroundColor: backgroundColor,
+                color: color,
+                borderRadius: '0px',
+                opacity: 0.8,
+                border: 'none',
+                display: 'block'
+            }
+        };
+    };
+
     const handleEventClick = (event: any) => {
         setSelectedEvent(event);
     };
@@ -62,7 +80,8 @@ function AppointmentPage() {
                     startAccessor="start"
                     endAccessor="end"
                     onSelectEvent={handleEventClick}
-                    style={{ height: 500 }}
+                    eventPropGetter={eventStyleGetter}
+                    style={{ height: 500, color: dark ? 'white' : 'black' }}
                 />
                 <CalendarInfo appointments={selectedEvent ? [selectedEvent] : []}/>
             </div>

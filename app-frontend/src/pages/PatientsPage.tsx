@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ItemNav, TriageType } from "../utils/utils";
+import {getTriageType, ItemNav, TriageType} from "../utils/utils";
 import Sidebar from "../organisms/SideBar";
 import ButtonInfo from '../atoms/ButtonInfo.tsx';
 import Table from 'react-bootstrap/Table';
@@ -30,18 +30,6 @@ function PatientsPage() {
         p.patient_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    // Get triage type string
-    const getTriageType = (triage: string) => {
-        switch (triage) {
-            case 'urgent':
-                return TriageType.Urgent;
-            case 'nonUrgent':
-                return TriageType.NonUrgent;
-            default:
-                return TriageType.Emergency;
-        }
-    }
-
     return (
         <div style={{ backgroundColor: dark ? 'black' : 'white', color : dark ? 'white' : 'black' }}>
             <Sidebar items={ItemNav.Patients} />
@@ -71,11 +59,11 @@ function PatientsPage() {
                             <tbody>
                             {filteredPatients.map(p => (
                                 <tr key={p.uniqueId}>
-                                    <td style={{ color : dark ? 'white' : 'black' }}>{p.patient_name}</td>
-                                    <td style={{ color : dark ? 'white' : 'black' }}>{p.patient_gender ? "Male" : "Female"}</td>
-                                    <td style={{ color : dark ? 'white' : 'black' }}>{p.patient_age}</td>
-                                    <td style={{ color : dark ? 'white' : 'black' }}>{p.diagnosis}</td>
-                                    <td style={{ color : dark ? 'white' : 'black' }}>{getTriageType(p.patient_triage)}</td>
+                                    <td>{p.patient_name}</td>
+                                    <td>{p.patient_gender ? "Male" : "Female"}</td>
+                                    <td>{p.patient_age}</td>
+                                    <td>{p.diagnosis}</td>
+                                    <td>{getTriageType(p.patient_triage)}</td>
                                     <td>
                                         <ButtonInfo onClick={() => handleGoToPatient(p.uniqueId!)} />
                                     </td>
