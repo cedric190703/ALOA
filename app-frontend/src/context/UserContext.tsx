@@ -71,10 +71,16 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     };
 
     useEffect(() => {
-        fetchUserInfo();
-        fetchUsersInfo();
-        fetchAppointmentsInfo();
-    }, []);
+        if (user === null) {
+            fetchUserInfo();
+            fetchUsersInfo();
+            fetchAppointmentsInfo();
+        }
+    }, [user]);
 
-    return <UserContext.Provider value={{ user, setUser, users, setUsers, appointments, setAppointments }}>{children}</UserContext.Provider>;
+    return (
+        <UserContext.Provider value={{ user, setUser, users, setUsers, appointments, setAppointments }}>
+            {children}
+        </UserContext.Provider>
+    );
 };
