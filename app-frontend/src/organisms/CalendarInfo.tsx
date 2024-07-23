@@ -39,7 +39,7 @@ const CalendarInfo : React.FC<CalendarInfoProps> = ({ appointments }) => {
                     {appointments.map((app, index) => (
                         <tr key={index}>
                             <td>{new Date(app.appointmentDate).toLocaleDateString("en-US", options)}</td>
-                            <td>{app.patient}</td>
+                            <td>{app.patient_name}</td>
                             <td>{getReason(app.status)}</td>
                             <td>{app.reason}</td>
                         </tr>

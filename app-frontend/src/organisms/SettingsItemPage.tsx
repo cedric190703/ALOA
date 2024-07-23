@@ -100,7 +100,7 @@ const SettingsItemPage: React.FC = () => {
                 )}
                 {id === "4" && (
                     <p>
-                        This is not a professional EHR system (it was developed in less than 3 days)
+                        This is not a professional EHR system (it was developed in a week)
                         This is a very simple EHR system prototype for learning fullstack development but also to learn about EHR systems.
                     </p>
                 )}

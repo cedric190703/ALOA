@@ -30,7 +30,17 @@ function AppointmentPage() {
 
     const events = appointments.map((appointment: Appointment) => {
         // Combine appointmentDate and appointmentTime to create the start date
-        const startDate = new Date(appointment.appointmentTime);
+        const currentDate = new Date(appointment.appointmentDate);
+        currentDate.setHours(0,0,0,0);
+
+        const appointmentTime = new Date(appointment.appointmentTime);
+        const hours = appointmentTime.getHours();
+        const minutes = appointmentTime.getMinutes();
+        const seconds = appointmentTime.getSeconds();
+
+        // Combine the date and time
+        const startDate = new Date(currentDate);
+        startDate.setHours(hours, minutes, seconds, 0);
 
         // Calculate the end date by adding 30 minutes
         const endDate = addMinutes(startDate, 45);
@@ -45,7 +55,7 @@ function AppointmentPage() {
     });
 
     // Function to customize event styles based on the theme or any other criteria
-    const eventStyleGetter = (event: any) => {
+    const eventStyleGetter = () => {
         const dark: boolean = JSON.parse(localStorage.getItem('dark') || 'false');
         const backgroundColor = dark ? '#555' : '#007bff'; // Dark and light theme colors
         const color = dark ? 'white' : 'black'; // Text color based on theme
@@ -63,6 +73,7 @@ function AppointmentPage() {
     };
 
     const handleEventClick = (event: any) => {
+        console.log(event);
         setSelectedEvent(event);
     };
 
